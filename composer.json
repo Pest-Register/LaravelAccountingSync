@@ -1,0 +1,46 @@
+{
+    "name": "pestregister/laravelaccountingsync",
+    "description": "Sync package for accounting providers",
+    "license": "license",
+    "authors": [
+        {
+            "name": "Dylan Aird",
+            "email": "dylan@pestregister.com",
+            "homepage": "pestregister.com"
+        }
+    ],
+    "homepage": "https://github.com/pestregister/laravelaccountingsync",
+    "keywords": ["Laravel", "LaravelAccountingSync"],
+    "require": {
+        "illuminate/support": "~5",
+        "php-http/guzzle6-adapter": "*",
+        "pest-register/php-accounting-xero": "dev-master",
+        "pest-register/php-accounting-common": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~7.0",
+        "mockery/mockery": "^1.1",
+        "orchestra/testbench": "~3.0",
+        "sempro/phpunit-pretty-print": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "PestRegister\\LaravelAccountingSync\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PestRegister\\LaravelAccountingSync\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PestRegister\\LaravelAccountingSync\\LaravelAccountingSyncServiceProvider"
+            ],
+            "aliases": {
+                "LaravelAccountingSync": "PestRegister\\LaravelAccountingSync\\Facades\\LaravelAccountingSync"
+            }
+        }
+    }
+}
