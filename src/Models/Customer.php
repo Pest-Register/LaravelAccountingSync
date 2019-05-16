@@ -2,7 +2,8 @@
 
 
 namespace PestRegister\LaravelAccountingSync\Models;
-use PhpAccounting\Common\Interfaces\CrudInterface;
+
+use PestRegister\LaravelAccountingSync\CrudInterface;
 
 /**
  * Created by IntelliJ IDEA.

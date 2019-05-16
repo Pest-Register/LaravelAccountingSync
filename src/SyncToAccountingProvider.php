@@ -14,7 +14,7 @@ trait SyncToAccountingProvider
     /**
      * @var AccountingResource
      */
-    protected $AccountingResourceInstance;
+    protected $accountingResourceInstance;
     /**
      * The data to sync to Accounting.
      *
@@ -29,9 +29,9 @@ trait SyncToAccountingProvider
      */
     public function getAccountingIdAttribute(): ?string
     {
-        $AccountingIdColumn = $this->AccountingIdColumn ?? 'Accounting_id';
-        if (isset($this->attributes[$AccountingIdColumn])) {
-            return $this->attributes[$AccountingIdColumn];
+        $accountingIdColumn = $this->accountingIdColumnccountingIdColumn ?? 'accounting_id';
+        if (isset($this->attributes[$accountingIdColumn])) {
+            return $this->attributes[$accountingIdColumn];
         }
         return null;
     }
@@ -68,11 +68,11 @@ trait SyncToAccountingProvider
      */
     public function updateToAccounting(): bool
     {
-        if (empty($this->Accounting_id)) {
+        if (empty($this->accounting_id)) {
             return false;
         }
         $attributes = $this->getAccountingArray();
-        return $this->getAccountingResourceInstance()->update($this->Accounting_id, $attributes);
+        return $this->getAccountingResourceInstance()->update($this->accounting_id, $attributes);
     }
 
     /**
@@ -98,10 +98,10 @@ trait SyncToAccountingProvider
      */
     protected function getAccountingResource()
     {
-        if (empty($this->AccountingResource)) {
+        if (empty($this->accountingResource)) {
             throw new \Exception('The $AccountingResource property must be set on the model.');
         }
-        return $this->AccountingResource;
+        return $this->accountingResource;
     }
 
     /**
@@ -113,8 +113,8 @@ trait SyncToAccountingProvider
     protected function getAccountingResourceInstance($config = null)
     {
         if (empty($this->AccountingResourceInstance)) {
-            $this->AccountingResourceInstance = new $this->$accountingResource($config);
+            $this->accountingResourceInstance = new $this->$accountingResource($config);
         }
-        return $this->AccountingResourceInstance;
+        return $this->accountingResourceInstance;
     }
 }
