@@ -1,7 +1,7 @@
 {
     "name": "pestregister/laravelaccountingsync",
     "description": "Sync package for accounting providers",
-    "license": "license",
+    "license": "MIT",
     "authors": [
         {
             "name": "Dylan Aird",
