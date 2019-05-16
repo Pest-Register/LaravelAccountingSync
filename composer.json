@@ -14,8 +14,8 @@
     "require": {
         "illuminate/support": "~5",
         "php-http/guzzle6-adapter": "*",
-        "pest-register/php-accounting-xero": "dev-master",
-        "pest-register/php-accounting-common": "dev-master"
+        "pest-register/php-accounting-xero": "1.0",
+        "pest-register/php-accounting-common": "1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~7.0",
