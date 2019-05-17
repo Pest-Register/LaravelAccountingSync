@@ -21,7 +21,7 @@ trait SyncToAccountingProvider
      * @see https://developer.intuit.com/docs/api/accounting
      * @return array
      */
-    abstract protected function getAccountingArray(): array;
+    abstract public function getAccountingArray(): array;
     /**
      * Allows you to use `$model->Accounting_id` regardless of the actual column being used.
      *
