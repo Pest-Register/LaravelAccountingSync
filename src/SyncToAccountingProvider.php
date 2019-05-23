@@ -27,11 +27,19 @@ trait SyncToAccountingProvider
      *
      * @return null|string
      */
-    public function getAccountingIdAttribute(): ?string
+    public function getAccountingIdAttribute(): ? string
     {
-        $accountingIdColumn = $this->accountingIdColumnccountingIdColumn ?? 'accounting_id';
+        $accountingIdColumn = $this->accountingIdColumn ?? 'accounting_id';
         if (isset($this->attributes[$accountingIdColumn])) {
             return $this->attributes[$accountingIdColumn];
+        }
+        return null;
+    }
+    public function getAccountingProviderName(): ? string
+    {
+        $accountingProviderNameColumn = $this->accountingProviderNameColumn ?? 'xero';
+        if (isset($this->attributes[$accountingProviderNameColumn])) {
+            return $this->attributes[$accountingProviderNameColumn];
         }
         return null;
     }

@@ -11,7 +11,8 @@ namespace PestRegister\LaravelAccountingSync;
 
 interface Syncable
 {
-    public function getAccountingIdAttribute(): ?string;
+    public function getAccountingIdAttribute(): ? string;
     public function getAccountingArray() : array;
-    public function syncToAccountingProvider($config):bool;
+    public function syncToAccountingProvider($config): bool;
+    public function getAccountingProviderName(): ? string;
 }

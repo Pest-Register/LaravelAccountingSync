@@ -20,6 +20,8 @@ abstract class AccountingEntity extends Model implements Syncable
      * @var string
      */
     protected $accountingIdColumn = 'accounting_id';
+
+    protected $accountingProviderNameColumn = 'xero';
     /**
      * The resource class from LifeOnScreen\LaravelQuickBooks\Resources.
      *

@@ -17,7 +17,7 @@ class Customer extends BaseModel implements CrudInterface
 
     public function create(array $parameters = [])
     {
-        $response = $this->getGateway()->createCustomer($parameters)->send();
+        $response = $this->getGateway()->createContact($parameters)->send();
         if (!$response->isSuccessful()) {
             throw new \Exception('charge card unsuccessful');
         }
@@ -27,7 +27,7 @@ class Customer extends BaseModel implements CrudInterface
 
     public function update(array $parameters = [])
     {
-        $response = $this->getGateway()->updateCustomer($parameters)->send();
+        $response = $this->getGateway()->updateContact($parameters)->send();
         if (!$response->isSuccessful()) {
             throw new \Exception('charge card unsuccessful');
         }
@@ -37,7 +37,7 @@ class Customer extends BaseModel implements CrudInterface
 
     public function get(array $parameters = [])
     {
-        $response = $this->getGateway()->getCustomer($parameters)->send();
+        $response = $this->getGateway()->getContact($parameters)->send();
         if (!$response->isSuccessful()) {
             throw new \Exception('charge card unsuccessful');
         }
@@ -47,7 +47,7 @@ class Customer extends BaseModel implements CrudInterface
 
     public function delete(array $parameters = [])
     {
-        $response = $this->getGateway()->deleteCustomer($parameters)->send();
+        $response = $this->getGateway()->deleteContact($parameters)->send();
         if (!$response->isSuccessful()) {
             throw new \Exception('charge card unsuccessful');
         }
