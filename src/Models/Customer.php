@@ -21,8 +21,7 @@ class Customer extends BaseModel implements CrudInterface
         if (!$response->isSuccessful()) {
             throw new \Exception('charge card unsuccessful');
         }
-        return $response->getCustomerReference();
-        // TODO: Implement create() method.
+        return $response->getContacts();
     }
 
     public function update(array $parameters = [])
@@ -31,8 +30,7 @@ class Customer extends BaseModel implements CrudInterface
         if (!$response->isSuccessful()) {
             throw new \Exception('charge card unsuccessful');
         }
-        return $response->getCustomerReference();
-        // TODO: Implement create() method.
+        return $response->getContacts();
     }
 
     public function get(array $parameters = [])
@@ -41,8 +39,7 @@ class Customer extends BaseModel implements CrudInterface
         if (!$response->isSuccessful()) {
             throw new \Exception('charge card unsuccessful');
         }
-        return $response->getCustomerReference();
-        // TODO: Implement create() method.
+        return $response->getContacts();
     }
 
     public function delete(array $parameters = [])

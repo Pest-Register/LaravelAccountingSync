@@ -115,10 +115,10 @@ trait SyncToAccountingProvider
     /**
      * Return an instance of the associated Accounting resource.
      *
-     * @param null $config
+     * @param $config
      * @return mixed
      */
-    protected function getAccountingResourceInstance($config = null)
+    protected function getAccountingResourceInstance($config)
     {
         if (empty($this->AccountingResourceInstance)) {
             $this->accountingResourceInstance = new $this->$accountingResource($config);
