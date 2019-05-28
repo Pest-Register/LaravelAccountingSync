@@ -6,13 +6,12 @@
  * Time: 1:07 PM
  */
 
-namespace PestRegister\LaravelAccountingSync;
+namespace PestRegister\LaravelAccountingSync\Resources;
 
 
 interface Syncable
 {
     public function getAccountingIdAttribute(): ? string;
     public function getAccountingArray() : array;
-    public function syncToAccountingProvider($config): bool;
-    public function getAccountingProviderName(): ? string;
+    public function syncToAccountingProvider(): bool;
 }

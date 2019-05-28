@@ -43,7 +43,9 @@ class BaseModel
      */
 
 
-
+    private $allowedGateways = [
+      'xero'
+    ];
 
     private $gateway;
 
@@ -57,8 +59,8 @@ class BaseModel
         $gateway = null;
         $gatewayName = $config['gateway'];
 
-        if($gatewayName == null || strlen($gateway ==0)){
-            throw new \Exception('Gateway is not set');
+        if(!$this->isGatewayAllowed($gatewayName)){
+            throw new \Exception('Gateway is not set or is not allowed');
         }
 
         switch ($gatewayName){
@@ -79,6 +81,10 @@ class BaseModel
 
     public function getGateway() {
         return $this->gateway;
+    }
+
+    private function isGatewayAllowed($gateway){
+        return in_array($gateway, $this->allowedGateways);
     }
 
 }

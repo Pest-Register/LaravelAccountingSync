@@ -12,7 +12,7 @@ namespace PestRegister\LaravelAccountingSync;
 trait SyncToAccountingProvider
 {
     /**
-     * @var AccountingResource
+     * @var $accountingResourceInstance
      */
     protected $accountingResourceInstance;
     /**
@@ -35,31 +35,28 @@ trait SyncToAccountingProvider
         }
         return null;
     }
-    public function getAccountingProviderName(): ? string
-    {
-        $accountingProviderNameColumn = $this->accountingProviderNameColumn ?? 'xero';
-        if (isset($this->attributes[$accountingProviderNameColumn])) {
-            return $this->attributes[$accountingProviderNameColumn];
-        }
-        return null;
-    }
+
     /**
      * @return null|\AccountingOnline\API\Core\HttpClients\FaultHandler
      */
     public function getLastAccountingError()
     {
-        return $this->getAccountingResourceInstance()->getError();
+        return $this->accountingResourceInstance->getError();
     }
+
     /**
      * Creates the model in Accounting.
      *
      * @return bool
-     * @throws \AccountingOnline\API\Exception\IdsException
+     * @throws \Exception
      */
     public function insertToAccounting(): bool
     {
         $attributes = $this->getAccountingArray();
-        $resourceId = $this->getAccountingResourceInstance()->create($attributes);
+        if($this->accountingResourceInstance == null){
+            throw new \Exception('Accounting connection must be made with getSyncInstance($config) first');
+        }
+        $resourceId = $this->accountingResourceInstance->create($attributes);
         if (!$resourceId) {
             return false;
         }
@@ -67,11 +64,11 @@ trait SyncToAccountingProvider
         $this->save();
         return true;
     }
+
     /**
      * Updates the model in Accounting.
      *
      * @return bool
-     * @throws \AccountingOnline\API\Exception\IdsException
      * @throws \Exception
      */
     public function updateToAccounting(): bool
@@ -79,8 +76,11 @@ trait SyncToAccountingProvider
         if (empty($this->accounting_id)) {
             return false;
         }
+        if($this->accountingResourceInstance == null){
+            throw new \Exception('Accounting connection must be made with getSyncInstance($config) first');
+        }
         $attributes = $this->getAccountingArray();
-        return $this->getAccountingResourceInstance()->update($this->accounting_id, $attributes);
+        return $this->accountingResourceInstance->update($this->accounting_id, $attributes);
     }
 
     /**
@@ -90,13 +90,20 @@ trait SyncToAccountingProvider
      * @return bool
      * @throws \Exception
      */
-    public function syncToAccountingProvider($config): bool
+    public function syncToAccountingProvider(): bool
     {
-        $this->getAccountingResourceInstance($config);
         if (empty($this->accounting_id)) {
             return $this->insertToAccounting();
         }
         return $this->updateToAccounting();
+    }
+
+
+    public function loadFromAccountingProvider($params){
+        if($this->accountingResourceInstance == null){
+            throw new \Exception('Accounting connection must be made with getSyncInstance($config) first');
+        }
+        return $this->accountingResourceInstance->get($params);
     }
     /**
      * Returns the class name for the Accounting resource.
@@ -104,7 +111,7 @@ trait SyncToAccountingProvider
      * @return mixed
      * @throws \Exception
      */
-    protected function getAccountingResource()
+    public function getAccountingResource()
     {
         if (empty($this->accountingResource)) {
             throw new \Exception('The $AccountingResource property must be set on the model.');
@@ -120,9 +127,21 @@ trait SyncToAccountingProvider
      */
     protected function getAccountingResourceInstance($config)
     {
+        $myParameters = array ($config);
+
         if (empty($this->AccountingResourceInstance)) {
-            $this->accountingResourceInstance = new $this->$accountingResource($config);
+
+            $reflection = new \ReflectionClass($this->accountingResource);
+            $this->accountingResourceInstance = $reflection->newInstanceArgs($myParameters);
         }
         return $this->accountingResourceInstance;
+    }
+
+    public function getSyncInstance($config){
+        $this->getAccountingResourceInstance($config);
+        if ($this->accountingResourceInstance == null) {
+            throw new \Exception('Unable to create accounting instance');
+        }
+        return $this;
     }
 }

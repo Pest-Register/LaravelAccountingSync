@@ -6,7 +6,7 @@
  * Time: 12:26 PM
  */
 
-namespace PestRegister\LaravelAccountingSync;
+namespace PestRegister\LaravelAccountingSync\Interfaces;
 
 
 interface CrudInterface

@@ -10,6 +10,7 @@ namespace PestRegister\LaravelAccountingSync;
 
 
 use Illuminate\Database\Eloquent\Model;
+use PestRegister\LaravelAccountingSync\Resources\Syncable;
 
 abstract class AccountingEntity extends Model implements Syncable
 {

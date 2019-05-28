@@ -3,7 +3,7 @@
 
 namespace PestRegister\LaravelAccountingSync\Models;
 
-use PestRegister\LaravelAccountingSync\CrudInterface;
+use PestRegister\LaravelAccountingSync\Interfaces\CrudInterface;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,7 +19,7 @@ class Customer extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->createContact($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception('charge card unsuccessful');
+            throw new \Exception($response->getErrorMessage());
         }
         return $response->getContacts();
     }
@@ -28,7 +28,7 @@ class Customer extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->updateContact($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception('charge card unsuccessful');
+            throw new \Exception($response->getErrorMessage());
         }
         return $response->getContacts();
     }
@@ -37,7 +37,7 @@ class Customer extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->getContact($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception('charge card unsuccessful');
+            throw new \Exception($response->getErrorMessage());
         }
         return $response->getContacts();
     }
@@ -46,7 +46,7 @@ class Customer extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->deleteContact($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception('charge card unsuccessful');
+            throw new \Exception($response->getErrorMessage());
         }
         return true;
     }
