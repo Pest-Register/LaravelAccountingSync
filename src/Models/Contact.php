@@ -12,9 +12,14 @@ use PestRegister\LaravelAccountingSync\Interfaces\CrudInterface;
  * Time: 1:04 PM
  */
 
-class Customer extends BaseModel implements CrudInterface
+class Contact extends BaseModel implements CrudInterface
 {
 
+    /**
+     * @param array $parameters
+     * @return mixed
+     * @throws \Exception
+     */
     public function create(array $parameters = [])
     {
         $response = $this->getGateway()->createContact($parameters)->send();
@@ -23,6 +28,12 @@ class Customer extends BaseModel implements CrudInterface
         }
         return $response->getContacts();
     }
+
+    /**
+     * @param array $parameters
+     * @return mixed
+     * @throws \Exception
+     */
 
     public function update(array $parameters = [])
     {
@@ -33,6 +44,12 @@ class Customer extends BaseModel implements CrudInterface
         return $response->getContacts();
     }
 
+    /**
+     * @param array $parameters
+     * @return mixed
+     * @throws \Exception
+     */
+
     public function get(array $parameters = [])
     {
         $response = $this->getGateway()->getContact($parameters)->send();
@@ -42,12 +59,18 @@ class Customer extends BaseModel implements CrudInterface
         return $response->getContacts();
     }
 
+    /**
+     * @param array $parameters
+     * @return mixed
+     * @throws \Exception
+     */
+
     public function delete(array $parameters = [])
     {
         $response = $this->getGateway()->deleteContact($parameters)->send();
         if (!$response->isSuccessful()) {
             throw new \Exception($response->getErrorMessage());
         }
-        return true;
+        return $response->getData();
     }
 }

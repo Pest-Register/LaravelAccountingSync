@@ -10,7 +10,7 @@ namespace PestRegister\LaravelAccountingSync\Tests;
 
 use Faker\Generator;
 use PestRegister\LaravelAccountingSync\AccountingEntity;
-use PestRegister\LaravelAccountingSync\Models\Customer;
+use PestRegister\LaravelAccountingSync\Models\Contact;
 use PHPUnit\Framework\TestCase;
 
 class GetDataTest extends TestCase
@@ -67,5 +67,5 @@ class Entity extends AccountingEntity {
         ];
     }
 
-    protected $accountingResource = Customer::class;
+    protected $accountingResource = Contact::class;
 }
