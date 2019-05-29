@@ -124,6 +124,7 @@ trait SyncToAccountingProvider
      *
      * @param $config
      * @return mixed
+     * @throws \ReflectionException
      */
     protected function getAccountingResourceInstance($config)
     {
