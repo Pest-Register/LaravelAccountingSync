@@ -22,6 +22,7 @@ trait SyncToAccountingProvider
      * @return array
      */
     abstract public function getAccountingArray(): array;
+    abstract public function parseAccountingArray($data = []): array;
     /**
      * Allows you to use `$model->Accounting_id` regardless of the actual column being used.
      *
