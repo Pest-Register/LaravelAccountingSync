@@ -14,7 +14,7 @@
     "require": {
         "illuminate/support": "~5",
         "php-http/guzzle6-adapter": "*",
-        "pest-register/php-accounting-xero": "^2.2",
+        "pest-register/php-accounting-xero": "^2.3",
         "omnipay/common": "^3.0"
     },
     "require-dev": {
