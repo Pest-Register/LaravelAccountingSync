@@ -71,6 +71,6 @@ class Contact extends BaseModel implements CrudInterface
         if (!$response->isSuccessful()) {
             throw new \Exception($response->getErrorMessage());
         }
-        return $response->getData();
+        return $response->getContacts();
     }
 }

@@ -22,7 +22,7 @@ class ContactGroup extends BaseModel
         if (!$response->isSuccessful()) {
             throw new \Exception($response->getErrorMessage());
         }
-        return $response->getContactGroup();
+        return $response->getContactGroups();
     }
     /**
      * @param array $parameters
@@ -36,7 +36,7 @@ class ContactGroup extends BaseModel
         if (!$response->isSuccessful()) {
             throw new \Exception($response->getErrorMessage());
         }
-        return $response->getContactGroup();
+        return $response->getContactGroups();
     }
 
     /**
@@ -64,6 +64,6 @@ class ContactGroup extends BaseModel
         if (!$response->isSuccessful()) {
             throw new \Exception($response->getErrorMessage());
         }
-        $response->getData();
+        $response->getContactGroups();
     }
 }

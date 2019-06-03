@@ -25,7 +25,7 @@ class Invoice extends BaseModel implements CrudInterface
         if (!$response->isSuccessful()) {
             throw new \Exception($response->getErrorMessage());
         }
-        return $response->getInvoice();
+        return $response->getInvoices();
     }
 
     /**
@@ -40,7 +40,7 @@ class Invoice extends BaseModel implements CrudInterface
         if (!$response->isSuccessful()) {
             throw new \Exception($response->getErrorMessage());
         }
-        return $response->getInvoice();
+        return $response->getInvoices();
     }
     /**
      * @param array $parameters
@@ -54,7 +54,7 @@ class Invoice extends BaseModel implements CrudInterface
         if (!$response->isSuccessful()) {
             throw new \Exception($response->getErrorMessage());
         }
-        return $response->getInvoice();
+        return $response->getInvoices();
     }
     /**
      * @param array $parameters
@@ -68,6 +68,6 @@ class Invoice extends BaseModel implements CrudInterface
         if (!$response->isSuccessful()) {
             throw new \Exception($response->getErrorMessage());
         }
-        return $response->getData();
+        return $response->getInvoices();
     }
 }
