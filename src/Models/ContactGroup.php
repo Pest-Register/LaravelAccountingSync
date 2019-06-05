@@ -64,6 +64,6 @@ class ContactGroup extends BaseModel
         if (!$response->isSuccessful()) {
             throw new \Exception($response->getErrorMessage());
         }
-        $response->getContactGroups();
+        return $response->getContactGroups();
     }
 }
