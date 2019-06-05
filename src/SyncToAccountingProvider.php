@@ -58,10 +58,10 @@ trait SyncToAccountingProvider
             throw new \Exception('Accounting connection must be made with getSyncInstance($config) first');
         }
         $resourceId = $this->accountingResourceInstance->create($attributes);
-        if (!$resourceId['0'] || $resourceId['0']['accounting_id']) {
+        if (!$resourceId[0] || !$resourceId[0]['accounting_id']) {
             return false;
         }
-        $this->accounting_id = $resourceId['0']['accounting_id'];
+        $this->accounting_id = $resourceId[0]['accounting_id'];
         $this->save();
         return true;
     }
