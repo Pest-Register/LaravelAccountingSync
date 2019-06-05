@@ -106,6 +106,13 @@ trait SyncToAccountingProvider
         }
         return $this->accountingResourceInstance->get($params);
     }
+
+    public function deleteFromAccountingProvider($params){
+        if($this->accountingResourceInstance == null){
+            throw new \Exception('Accounting connection must be made with getSyncInstance($config) first');
+        }
+        return $this->accountingResourceInstance->delete($params);
+    }
     /**
      * Returns the class name for the Accounting resource.
      *
