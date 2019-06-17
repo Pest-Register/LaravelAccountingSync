@@ -32,8 +32,8 @@ class GetDataTest extends TestCase
                     ]
                 ]
             ],
-            'accessToken' => 'BEUH7PDY4BLBZWZUJVDCN0OEHH3TDN',
-            'accessTokenSecret' => 'ZQTAEPFBNCRUYVBCPNWAKAZFSYVKJC',
+            'accessToken' => 'PCZXILWY8XFXEJS1F5GPRJATHYG92P',
+            'accessTokenSecret' => 'Q1JJA0NQTQIDC4YQHS4VZYGTC0U993',
             'gateway' => 'xero'
         ];
         try {
@@ -60,7 +60,7 @@ class Entity extends AccountingEntity {
     {
 
         return [
-            'name' => 'test account',
+            'name' => '3sfsefe',
             'first_name' => 'test',
             'last_name' => 'account',
             'email_address' => 'test@test.com'
@@ -68,4 +68,9 @@ class Entity extends AccountingEntity {
     }
 
     protected $accountingResource = Contact::class;
+
+    public function parseAccountingArray($data = [])
+    {
+        // TODO: Implement parseAccountingArray() method.
+    }
 }
