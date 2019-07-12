@@ -16,21 +16,37 @@ class InventoryItem extends BaseModel implements CrudInterface
 
     public function create(array $parameters)
     {
-        // TODO: Implement create() method.
+        $response = $this->getGateway()->createInventoryItem($parameters)->send();
+        if (!$response->isSuccessful()) {
+            throw new \Exception($response->getErrorMessage());
+        }
+        return $response->getInventoryItems();
     }
 
     public function update(array $parameters)
     {
-        // TODO: Implement update() method.
+        $response = $this->getGateway()->updateInventoryItem($parameters)->send();
+        if (!$response->isSuccessful()) {
+            throw new \Exception($response->getErrorMessage());
+        }
+        return $response->getInventoryItems();
     }
 
     public function get(array $parameters)
     {
-        // TODO: Implement get() method.
+        $response = $this->getGateway()->getInventoryItem($parameters)->send();
+        if (!$response->isSuccessful()) {
+            throw new \Exception($response->getErrorMessage());
+        }
+        return $response->getInventoryItems();
     }
 
     public function delete(array $parameters)
     {
-        // TODO: Implement delete() method.
+        $response = $this->getGateway()->deleteInventoryItem($parameters)->send();
+        if (!$response->isSuccessful()) {
+            throw new \Exception($response->getErrorMessage());
+        }
+        return $response->getInventoryItems();
     }
 }
