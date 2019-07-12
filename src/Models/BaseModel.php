@@ -44,7 +44,8 @@ class BaseModel
 
 
     private $allowedGateways = [
-      'xero'
+      'xero',
+      'myob'
     ];
 
     private $gateway;
@@ -71,8 +72,13 @@ class BaseModel
                 $this->gateway->setAccessToken($config['accessToken']);
                 $this->gateway->setAccessTokenSecret($config['accessTokenSecret']);
                 break;
-//            case "":
-//                break;
+            case "myob":
+                $this->gateway = Omnipay::create('\PHPAccounting\MYOB\Gateway');
+                $this->gateway->setAPIKey($config['apiKey']);
+                $this->gateway->setAccessToken($config['accessToken']);
+                $this->gateway->setCompanyEndpoint($config['companyEndpoint']);
+                $this->gateway->setCompanyFile($config['companyFile']);
+                break;
 //            case "":
             default:
                 throw new \Exception('Gateway ' . $gatewayName. ' not supported');
