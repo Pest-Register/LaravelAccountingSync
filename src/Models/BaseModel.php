@@ -81,7 +81,7 @@ class BaseModel
                 $this->gateway->setCompanyFile($config['companyFile']);
                 break;
             case "myobessentials":
-                $this->gateway = Omnipay::ceate('\PHPAccounting\MyobEssentils\Gateway');
+                $this->gateway = Omnipay::create('\PHPAccounting\MyobEssentials\Gateway');
                 $this->gateway->setApiKey($config['apiKey']);
                 $this->gateway->setAccessToken($config['accessToken']);
                 $this->gateway->setBusinessID($config['businessID']);
