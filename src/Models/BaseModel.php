@@ -80,7 +80,13 @@ class BaseModel
                 $this->gateway->setCompanyEndpoint($config['companyEndpoint']);
                 $this->gateway->setCompanyFile($config['companyFile']);
                 break;
-//            case "":
+            case "myobessentials":
+                $this->gateway = Omnipay::ceate('\PHPAccounting\MyobEssentils\Gateway');
+                $this->gateway->setApiKey($config['apiKey']);
+                $this->gateway->setAccessToken($config['accessToken']);
+                $this->gateway->setBusinessID($config['businessID']);
+                $this->gateway->setCountryCode($config['countryCode']);
+                break;
             default:
                 throw new \Exception('Gateway ' . $gatewayName. ' not supported');
         }
