@@ -46,7 +46,8 @@ class BaseModel
     private $allowedGateways = [
         'xero',
         'myobaccountright',
-        'myobessentials'
+        'myobessentials',
+        'quickbooks'
     ];
 
     private $gateway;
@@ -87,6 +88,15 @@ class BaseModel
                 $this->gateway->setBusinessID($config['businessID']);
                 $this->gateway->setCountryCode($config['countryCode']);
                 break;
+            case "quickbooks":
+                $this->gateway = Omnipay::create('\PHPAccounting\Quickbooks\Gateway');
+                $this->gateway->setClientID($config('clientID'));
+                $this->gateway->setClientSecret($config('clientSecret'));
+                $this->gateway->setAccessToken($config('accessToken'));
+                $this->gateway->setQBORealmID($config('qboRealmID'));
+                $this->gateway->setBaseURL($config('baseUrl'));
+                break;
+
             default:
                 throw new \Exception('Gateway ' . $gatewayName. ' not supported');
         }
