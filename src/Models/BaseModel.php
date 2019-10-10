@@ -90,11 +90,11 @@ class BaseModel
                 break;
             case "quickbooks":
                 $this->gateway = Omnipay::create('\PHPAccounting\Quickbooks\Gateway');
-                $this->gateway->setClientID($config('clientID'));
-                $this->gateway->setClientSecret($config('clientSecret'));
-                $this->gateway->setAccessToken($config('accessToken'));
-                $this->gateway->setQBORealmID($config('qboRealmID'));
-                $this->gateway->setBaseURL($config('baseUrl'));
+                $this->gateway->setClientID($config['clientID']);
+                $this->gateway->setClientSecret($config['clientSecret']);
+                $this->gateway->setAccessToken($config['accessToken']);
+                $this->gateway->setQBORealmID($config['qboRealmID']);
+                $this->gateway->setBaseURL($config['baseUrl']);
                 break;
 
             default:
