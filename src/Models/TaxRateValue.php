@@ -19,7 +19,7 @@ class TaxRateValue extends BaseModel implements CrudInterface
         if (!$response->isSuccessful()) {
             throw new \Exception($response->getErrorMessage());
         }
-        return $response->getTaxRates();
+        return $response->getTaxRateValues();
     }
 
     public function update(array $parameters)
@@ -28,7 +28,7 @@ class TaxRateValue extends BaseModel implements CrudInterface
         if (!$response->isSuccessful()) {
             throw new \Exception($response->getErrorMessage());
         }
-        return $response->getTaxRates();
+        return $response->getTaxRateValues();
     }
 
     public function get(array $parameters)
@@ -37,7 +37,7 @@ class TaxRateValue extends BaseModel implements CrudInterface
         if (!$response->isSuccessful()) {
             throw new \Exception($response->getErrorMessage());
         }
-        return $response->getTaxRates();
+        return $response->getTaxRateValues();
     }
 
     public function delete(array $parameters)
@@ -46,6 +46,6 @@ class TaxRateValue extends BaseModel implements CrudInterface
         if (!$response->isSuccessful()) {
             throw new \Exception($response->getErrorMessage());
         }
-        return $response->getTaxRates();
+        return $response->getTaxRateValues();
     }
 }
