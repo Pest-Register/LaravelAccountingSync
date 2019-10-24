@@ -26,7 +26,7 @@ class ManualJournal extends BaseModel implements CrudInterface
 
     public function update(array $parameters = [])
     {
-        $response = $this->getGateway()->updateManualJournals($parameters)->send();
+        $response = $this->getGateway()->updateManualJournal($parameters)->send();
         if (!$response->isSuccessful()) {
             throw new \Exception($response->getErrorMessage());
         }
