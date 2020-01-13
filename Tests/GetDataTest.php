@@ -11,40 +11,43 @@ namespace PestRegister\LaravelAccountingSync\Tests;
 use Faker\Generator;
 use PestRegister\LaravelAccountingSync\AccountingEntity;
 use PestRegister\LaravelAccountingSync\Models\Contact;
+use PestRegister\LaravelAccountingSync\Models\Invoice;
+use PestRegister\LaravelAccountingSync\Models\ManualJournal;
+use PestRegister\LaravelAccountingSync\Models\Payment;
 use PHPUnit\Framework\TestCase;
 
 class GetDataTest extends TestCase
 {
     public function testGetContacts()
     {
-        $config = [
-            'xeroConfig' => [
-                'type' => 'public',
-                'config' => [
-                    'oauth' => [
-                        'callback' => 'localhost',
-                        'signature_method' => 'HMAC-SHA1',
-                        'consumer_key' => 'LEFVEZ26CAJQXOBLKNZGE5KDAY2HP3',
-                        'consumer_secret' => 'LIYZTFSOCIIZUWEYIQBVPHJS8VG39D',
-                        //If you have issues passing the Authorization header, you can set it to append to the query string
-                        'signature_location'    => 'query_string',
-                        //For certs on disk or a string - allows anything that is valid with openssl_pkey_get_(private|public)
-                    ]
-                ]
-            ],
-            'accessToken' => 'PCZXILWY8XFXEJS1F5GPRJATHYG92P',
-            'accessTokenSecret' => 'Q1JJA0NQTQIDC4YQHS4VZYGTC0U993',
-            'gateway' => 'xero'
-        ];
+        $config = [];
+        $page = 1;
         try {
+            $params = [
+                'accounting_ids' => [""],
+                'page' => $page,
+            ];
             $model = new Entity();
-            $data = $model->getSyncInstance($config)->syncToAccountingProvider();
-            var_dump($data);
+            $collection = $model->getSyncInstance($config)->loadFromAccountingProvider($params);
+            do {
+                $page = $page + 1;
+                $params['page'] = $page;
+                try {
+                    $pagedData = $model->getSyncInstance($config)->loadFromAccountingProvider($params);
+                    $collection = array_merge($pagedData, $collection);
+                } catch (\Exception $e) {
+                    var_dump($e->getMessage());
+                    break;
+                }
+//                $pageCounter = $page;
+            } while (true);
             // loop over insert into our database
         } catch (\Exception $exception){
             var_dump($exception->getMessage());
-            var_dump($exception->getTrace());
+//            var_dump($exception->getTrace());
         }
+//        var_dump('pages: '.$pageCounter);
+        var_dump('number of entity: '.count($collection));
     }
 }
 
@@ -67,7 +70,7 @@ class Entity extends AccountingEntity {
         ];
     }
 
-    protected $accountingResource = Contact::class;
+    protected $accountingResource = Invoice::class;
 
     public function parseAccountingArray($data = [])
     {
