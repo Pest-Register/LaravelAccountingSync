@@ -15,17 +15,18 @@
         "illuminate/support": "~5",
         "php-http/guzzle6-adapter": "*",
         "omnipay/common": "^3.0",
-        "pest-register/php-accounting-xero": "^3.0",
-        "pest-register/php-accounting-myobaccountright": "^0.1",
-        "pest-register/php-accounting-myobessentials": "^0.1",
-        "pest-register/php-accounting-quickbooks": "^3.3"
+        "pest-register/php-accounting-myobaccountright": "^0.1.23",
+        "pest-register/php-accounting-myobessentials": "^1.0.0",
+        "pest-register/php-accounting-quickbooks": "^4.0.0",
+        "pest-register/php-accounting-xero": "^3.4.5"
     },
     "require-dev": {
         "phpunit/phpunit": "~7.0",
         "mockery/mockery": "^1.1",
         "orchestra/testbench": "~3.0",
         "sempro/phpunit-pretty-print": "^1.0",
-        "fzaninotto/faker": "^1.8"
+        "fzaninotto/faker": "^1.8",
+      "ext-curl": "*"
     },
     "autoload": {
         "psr-4": {
