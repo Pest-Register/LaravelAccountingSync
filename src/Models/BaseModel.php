@@ -67,12 +67,13 @@ class BaseModel
         }
 
         switch ($gatewayName){
-            // only support xero for now
             case "xero":
                 $this->gateway = Omnipay::create('\PHPAccounting\Xero\Gateway');
-                $this->gateway->setXeroConfig($config['xeroConfig']);
                 $this->gateway->setAccessToken($config['accessToken']);
-                $this->gateway->setAccessTokenSecret($config['accessTokenSecret']);
+                $this->gateway->setClientID($config['clientID']);
+                $this->gateway->setClientSecret($config['clientSecret']);
+                $this->gateway->setTenantID($config['tenantID']);
+                $this->gateway->setCallbackURL($config['callbackURL']);
                 break;
             case "myobaccountright":
                 $this->gateway = Omnipay::create('\PHPAccounting\MyobAccountRight\Gateway');
