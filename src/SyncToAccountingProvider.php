@@ -53,6 +53,7 @@ trait SyncToAccountingProvider
      */
     public function insertToAccounting(): bool
     {
+        $this->ignoreObservableEvents(['created', 'updated', 'saved']);
         $attributes = $this->getAccountingArray();
         if($this->accountingResourceInstance == null){
             throw new \Exception('Accounting connection must be made with getSyncInstance($config) first');
@@ -79,6 +80,7 @@ trait SyncToAccountingProvider
      */
     public function updateToAccounting(): bool
     {
+        $this->ignoreObservableEvents(['created', 'updated', 'saved']);
         if (empty($this->accounting_id)) {
             return false;
         }
