@@ -61,6 +61,11 @@ trait SyncToAccountingProvider
         if (!$resourceId[0] || !$resourceId[0]['accounting_id']) {
             return false;
         }
+        if ($resourceId[0]['sync_token']) {
+            if ($this->getAttributeValue('sync_token')) {
+                $this->sync_token = $resourceId[0]['sync_token'];
+            }
+        }
         $this->accounting_id = $resourceId[0]['accounting_id'];
         $this->save();
         return true;
