@@ -85,8 +85,22 @@ trait SyncToAccountingProvider
         if($this->accountingResourceInstance == null){
             throw new \Exception('Accounting connection must be made with getSyncInstance($config) first');
         }
+
         $attributes = $this->getAccountingArray();
-        return $this->accountingResourceInstance->update(array_merge(['accounting_id'=> $this->accounting_id], $attributes)) != null;
+        $resourceId = $this->accountingResourceInstance->update(array_merge(['accounting_id'=> $this->accounting_id], $attributes));
+        if ($resourceId) {
+            if ($resourceId[0]['sync_token']) {
+                if (array_key_exists('sync_token', $this->getAttributes())) {
+                    $this->sync_token = $resourceId[0]['sync_token'];
+                }
+            }
+            if ($resourceId[0]['accounting_id']) {
+                $this->accounting_id = $resourceId[0]['accounting_id'];
+                $this->save();
+            }
+        }
+
+        return $resourceId !== null;
     }
 
     /**
