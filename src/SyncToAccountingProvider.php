@@ -62,7 +62,7 @@ trait SyncToAccountingProvider
             return false;
         }
         if ($resourceId[0]['sync_token']) {
-            if ($this->getAttributeValue('sync_token')) {
+            if (array_key_exists('sync_token', $this->getAttributes())) {
                 $this->sync_token = $resourceId[0]['sync_token'];
             }
         }
