@@ -62,12 +62,21 @@ trait SyncToAccountingProvider
         if (!$resourceId[0] || !$resourceId[0]['accounting_id']) {
             return false;
         }
-        if ($resourceId[0]['sync_token']) {
-            if (array_key_exists('sync_token', $this->getAttributes())) {
-                $this->sync_token = $resourceId[0]['sync_token'];
+        if ($resourceId) {
+            if (array_key_exists('sync_token', $resourceId[0])) {
+                if ($resourceId[0]['sync_token']) {
+                    if (array_key_exists('sync_token', $this->getAttributes())) {
+                        $this->sync_token = $resourceId[0]['sync_token'];
+                    }
+                }
+            }
+            if (array_key_exists('accounting_id', $resourceId[0])) {
+                if ($resourceId[0]['accounting_id']) {
+                    $this->accounting_id = $resourceId[0]['accounting_id'];
+                    $this->save();
+                }
             }
         }
-        $this->accounting_id = $resourceId[0]['accounting_id'];
         $this->save();
         return true;
     }
@@ -91,16 +100,22 @@ trait SyncToAccountingProvider
         $attributes = $this->getAccountingArray();
         $resourceId = $this->accountingResourceInstance->update(array_merge(['accounting_id'=> $this->accounting_id], $attributes));
         if ($resourceId) {
-            if ($resourceId[0]['sync_token']) {
-                if (array_key_exists('sync_token', $this->getAttributes())) {
-                    $this->sync_token = $resourceId[0]['sync_token'];
+            if (array_key_exists('sync_token', $resourceId[0])) {
+                if ($resourceId[0]['sync_token']) {
+                    if (array_key_exists('sync_token', $this->getAttributes())) {
+                        $this->sync_token = $resourceId[0]['sync_token'];
+                    }
                 }
             }
-            if ($resourceId[0]['accounting_id']) {
-                $this->accounting_id = $resourceId[0]['accounting_id'];
-                $this->save();
+            if (array_key_exists('accounting_id', $resourceId[0])) {
+                if ($resourceId[0]['accounting_id']) {
+                    $this->accounting_id = $resourceId[0]['accounting_id'];
+                    $this->save();
+                }
+
             }
         }
+
 
         return $resourceId !== null;
     }
@@ -134,14 +149,19 @@ trait SyncToAccountingProvider
         }
         $resourceId = $this->accountingResourceInstance->delete($params);
         if ($resourceId) {
-            if ($resourceId[0]['sync_token']) {
-                if (array_key_exists('sync_token', $this->getAttributes())) {
-                    $this->sync_token = $resourceId[0]['sync_token'];
+            if (array_key_exists('sync_token', $resourceId[0])) {
+                if ($resourceId[0]['sync_token']) {
+                    if (array_key_exists('sync_token', $this->getAttributes())) {
+                        $this->sync_token = $resourceId[0]['sync_token'];
+                    }
                 }
             }
-            if ($resourceId[0]['accounting_id']) {
-                $this->accounting_id = $resourceId[0]['accounting_id'];
-                $this->save();
+            if (array_key_exists('accounting_id', $resourceId[0])) {
+                if ($resourceId[0]['accounting_id']) {
+                    $this->accounting_id = $resourceId[0]['accounting_id'];
+                    $this->save();
+                }
+
             }
         }
 
