@@ -15,6 +15,7 @@
         "illuminate/support": "~5",
         "php-http/guzzle6-adapter": "*",
         "omnipay/common": "^3.0",
+        "pest-register/phpaccounting-myobaccountrightlive": "^1.0.2",
         "pest-register/php-accounting-myobaccountright": "^0.1.23",
         "pest-register/php-accounting-myobessentials": "^1.0.0",
         "pest-register/php-accounting-quickbooks": "^4.0.0",

@@ -46,6 +46,7 @@ class BaseModel
     private $allowedGateways = [
         'xero',
         'myobaccountright',
+        'myobaccountrightlive',
         'myobessentials',
         'quickbooks'
     ];
@@ -74,6 +75,14 @@ class BaseModel
                 $this->gateway->setClientSecret($config['clientSecret']);
                 $this->gateway->setTenantID($config['tenantID']);
                 $this->gateway->setCallbackURL($config['callbackURL']);
+                break;
+            case "myobaccountrightlive":
+                $this->gateway = Omnipay::create('\PHPAccounting\MyobAccountRightLive\Gateway');
+                $this->gateway->setAPIKey($config['apiKey']);
+                $this->gateway->setAccessToken($config['accessToken']);
+                $this->gateway->setCompanyEndpoint($config['companyEndpoint']);
+                $this->gateway->setCompanyFile($config['companyFile']);
+                $this->gateway->setAccessFlag($config['accessFlag']);
                 break;
             case "myobaccountright":
                 $this->gateway = Omnipay::create('\PHPAccounting\MyobAccountRight\Gateway');
