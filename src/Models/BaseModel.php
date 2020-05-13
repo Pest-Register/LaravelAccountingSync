@@ -83,6 +83,9 @@ class BaseModel
                 $this->gateway->setCompanyEndpoint($config['companyEndpoint']);
                 $this->gateway->setCompanyFile($config['companyFile']);
                 $this->gateway->setAccessFlag($config['accessFlag']);
+                $this->gateway->setBusinessID($config['businessID']);
+                $this->gateway->setCountryCode($config['countryCode']);
+                $this->gateway->setProduct($config['product']);
                 break;
             case "myobaccountright":
                 $this->gateway = Omnipay::create('\PHPAccounting\MyobAccountRight\Gateway');
