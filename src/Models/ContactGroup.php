@@ -20,7 +20,7 @@ class ContactGroup extends BaseModel
     {
         $response = $this->getGateway()->createContactGroup($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getContactGroups();
     }
@@ -34,7 +34,7 @@ class ContactGroup extends BaseModel
     {
         $response = $this->getGateway()->updateContactGroup($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getContactGroups();
     }
@@ -48,7 +48,7 @@ class ContactGroup extends BaseModel
     {
         $response = $this->getGateway()->getContactGroup($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getContactGroups();
     }
@@ -62,7 +62,7 @@ class ContactGroup extends BaseModel
     {
         $response = $this->getGateway()->deleteContactGroup($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getContactGroups();
     }

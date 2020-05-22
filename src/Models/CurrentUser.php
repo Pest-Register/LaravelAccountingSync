@@ -23,7 +23,7 @@ class CurrentUser extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->getCurrentUser()->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getCurrentUser();
     }

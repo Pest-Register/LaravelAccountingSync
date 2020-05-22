@@ -18,7 +18,7 @@ class InventoryItem extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->createInventoryItem($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getInventoryItems();
     }
@@ -27,7 +27,7 @@ class InventoryItem extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->updateInventoryItem($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getInventoryItems();
     }
@@ -36,7 +36,7 @@ class InventoryItem extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->getInventoryItem($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getInventoryItems();
     }
@@ -45,7 +45,7 @@ class InventoryItem extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->deleteInventoryItem($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getInventoryItems();
     }

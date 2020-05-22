@@ -16,7 +16,7 @@ class Payment extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->createPayment($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getPayments();
     }
@@ -31,7 +31,7 @@ class Payment extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->updatePayment($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getPayments();
     }
@@ -46,7 +46,7 @@ class Payment extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->getPayment($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getPayments();
     }
@@ -61,7 +61,7 @@ class Payment extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->deletePayment($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getPayments();
     }

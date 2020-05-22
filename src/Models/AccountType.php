@@ -18,7 +18,7 @@ class AccountType extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->getAccountType($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getAccountTypes();
     }

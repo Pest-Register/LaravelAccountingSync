@@ -16,7 +16,7 @@ class Journal extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->createJournal($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getJournals();
     }
@@ -31,7 +31,7 @@ class Journal extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->updateJournal($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getJournals();
     }
@@ -46,7 +46,7 @@ class Journal extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->getJournal($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getJournals();
     }
@@ -61,7 +61,7 @@ class Journal extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->deleteJournal($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getJournals();
     }

@@ -11,7 +11,7 @@ class TaxRate extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->createTaxRate($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getTaxRates();
     }
@@ -20,7 +20,7 @@ class TaxRate extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->updateTaxRate($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getTaxRates();
     }
@@ -29,7 +29,7 @@ class TaxRate extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->getTaxRate($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getTaxRates();
     }
@@ -38,7 +38,7 @@ class TaxRate extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->deleteTaxRate($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getTaxRates();
     }

@@ -23,7 +23,7 @@ class Invoice extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->createInvoice($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getInvoices();
     }
@@ -38,7 +38,7 @@ class Invoice extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->updateInvoice($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getInvoices();
     }
@@ -52,7 +52,7 @@ class Invoice extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->getInvoice($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getInvoices();
     }
@@ -66,7 +66,7 @@ class Invoice extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->deleteInvoice($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new \Exception(json_encode($response->getErrorMessage()));
         }
         return $response->getInvoices();
     }
