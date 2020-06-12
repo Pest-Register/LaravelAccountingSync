@@ -12,7 +12,7 @@
     "homepage": "https://github.com/pestregister/laravelaccountingsync",
     "keywords": ["Laravel", "LaravelAccountingSync"],
     "require": {
-        "illuminate/support": "~5",
+        "illuminate/support": "~5.8 || ^6.0 || ^7.0",
         "php-http/guzzle6-adapter": "*",
         "omnipay/common": "^3.0",
         "pest-register/phpaccounting-myobaccountrightlive": "^1.0.8",
