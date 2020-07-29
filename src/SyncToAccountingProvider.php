@@ -63,10 +63,18 @@ trait SyncToAccountingProvider
             return false;
         }
         if ($resourceId) {
+            $resourceClass = get_class($this->accountingResourceInstance);
             if (array_key_exists('sync_token', $resourceId[0])) {
                 if ($resourceId[0]['sync_token']) {
                     if (array_key_exists('sync_token', $this->getAttributes())) {
                         $this->sync_token = $resourceId[0]['sync_token'];
+                    }
+                }
+            }
+            if ($resourceClass == 'PestRegister\LaravelAccountingSync\Models\Invoice') {
+                if (array_key_exists('invoice_data', $resourceId[0])) {
+                    if ($resourceId[0]['invoice_data']) {
+                        $this->parseLineItemsFromAccounting($resourceId[0]);
                     }
                 }
             }
@@ -100,10 +108,18 @@ trait SyncToAccountingProvider
         $attributes = $this->getAccountingArray();
         $resourceId = $this->accountingResourceInstance->update(array_merge(['accounting_id'=> $this->accounting_id], $attributes));
         if ($resourceId) {
+            $resourceClass = get_class($this->accountingResourceInstance);
             if (array_key_exists('sync_token', $resourceId[0])) {
                 if ($resourceId[0]['sync_token']) {
                     if (array_key_exists('sync_token', $this->getAttributes())) {
                         $this->sync_token = $resourceId[0]['sync_token'];
+                    }
+                }
+            }
+            if ($resourceClass == 'PestRegister\LaravelAccountingSync\Models\Invoice') {
+                if (array_key_exists('invoice_data', $resourceId[0])) {
+                    if ($resourceId[0]['invoice_data']) {
+                        $this->parseLineItemsFromAccounting($resourceId[0]);
                     }
                 }
             }
@@ -112,7 +128,6 @@ trait SyncToAccountingProvider
                     $this->accounting_id = $resourceId[0]['accounting_id'];
                     $this->save();
                 }
-
             }
         }
 
@@ -149,10 +164,18 @@ trait SyncToAccountingProvider
         }
         $resourceId = $this->accountingResourceInstance->delete($params);
         if ($resourceId) {
+            $resourceClass = get_class($this->accountingResourceInstance);
             if (array_key_exists('sync_token', $resourceId[0])) {
                 if ($resourceId[0]['sync_token']) {
                     if (array_key_exists('sync_token', $this->getAttributes())) {
                         $this->sync_token = $resourceId[0]['sync_token'];
+                    }
+                }
+            }
+            if ($resourceClass == 'PestRegister\LaravelAccountingSync\Models\Invoice') {
+                if (array_key_exists('invoice_data', $resourceId[0])) {
+                    if ($resourceId[0]['invoice_data']) {
+                        $this->parseLineItemsFromAccounting($resourceId[0]);
                     }
                 }
             }
@@ -161,7 +184,6 @@ trait SyncToAccountingProvider
                     $this->accounting_id = $resourceId[0]['accounting_id'];
                     $this->save();
                 }
-
             }
         }
 
