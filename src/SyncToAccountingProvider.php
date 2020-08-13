@@ -119,7 +119,9 @@ trait SyncToAccountingProvider
             if ($resourceClass == 'PestRegister\LaravelAccountingSync\Models\Invoice') {
                 if (array_key_exists('invoice_data', $resourceId[0])) {
                     if ($resourceId[0]['invoice_data']) {
-                        $this->parseLineItemsFromAccounting($resourceId[0]);
+                        if (method_exists($this, 'parseLineItemsFromAccounting')) {
+                            $this->parseLineItemsFromAccounting($resourceId[0]);
+                        }
                     }
                 }
             }
