@@ -129,6 +129,13 @@ trait SyncToAccountingProvider
                     $this->save();
                 }
             }
+
+            if (array_key_exists('updated_at', $resourceId[0])) {
+                if ($resourceId[0]['updated_at']) {
+                    $this->last_sync_time = $resourceId[0]['updated_at'];
+                    $this->save();
+                }
+            }
         }
 
 
