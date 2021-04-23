@@ -10,6 +10,7 @@ namespace PestRegister\LaravelAccountingSync;
 
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 trait SyncToAccountingProvider
 {
@@ -33,8 +34,8 @@ trait SyncToAccountingProvider
     public function getAccountingIdAttribute(): ? string
     {
         $accountingIdColumn = $this->accountingIdColumn ?? 'accounting_id';
-        if (isset($this->attributes[$accountingIdColumn])) {
-            return $this->attributes[$accountingIdColumn];
+        if (isset($this->model->attributes[$accountingIdColumn])) {
+            return $this->model->attributes[$accountingIdColumn];
         }
         return null;
     }
@@ -55,7 +56,8 @@ trait SyncToAccountingProvider
      */
     public function insertToAccounting(): bool
     {
-        $this->ignoreObservableEvents(['created', 'updated', 'saved']);
+        $modelClass = new $this->modelClassReference();
+        $modelClass::ignoreObservableEvents(['created', 'updated', 'saved']);
         $attributes = $this->getAccountingArray();
         if($this->accountingResourceInstance == null){
             throw new \Exception('Accounting connection must be made with getSyncInstance($config) first');
@@ -68,8 +70,8 @@ trait SyncToAccountingProvider
             $resourceClass = get_class($this->accountingResourceInstance);
             if (array_key_exists('sync_token', $resourceId[0])) {
                 if ($resourceId[0]['sync_token']) {
-                    if (array_key_exists('sync_token', $this->getAttributes())) {
-                        $this->sync_token = $resourceId[0]['sync_token'];
+                    if (array_key_exists('sync_token', $this->model->getAttributes())) {
+                        $this->model->sync_token = $resourceId[0]['sync_token'];
                     }
                 }
             }
@@ -82,12 +84,12 @@ trait SyncToAccountingProvider
             }
             if (array_key_exists('accounting_id', $resourceId[0])) {
                 if ($resourceId[0]['accounting_id']) {
-                    $this->accounting_id = $resourceId[0]['accounting_id'];
-                    $this->save();
+                    $this->model->accounting_id = $resourceId[0]['accounting_id'];
+                    $this->model->save();
                 }
             }
         }
-        $this->save();
+        $this->model->save();
         return true;
     }
 
@@ -99,7 +101,6 @@ trait SyncToAccountingProvider
      */
     public function updateToAccounting(): bool
     {
-        $this->ignoreObservableEvents(['created', 'updated', 'saved']);
         if (empty($this->accounting_id)) {
             return false;
         }
@@ -113,8 +114,8 @@ trait SyncToAccountingProvider
             $resourceClass = get_class($this->accountingResourceInstance);
             if (array_key_exists('sync_token', $resourceId[0])) {
                 if ($resourceId[0]['sync_token']) {
-                    if (array_key_exists('sync_token', $this->getAttributes())) {
-                        $this->sync_token = $resourceId[0]['sync_token'];
+                    if (array_key_exists('sync_token', $this->model->getAttributes())) {
+                        $this->model->sync_token = $resourceId[0]['sync_token'];
                     }
                 }
             }
@@ -129,12 +130,12 @@ trait SyncToAccountingProvider
             }
             if (array_key_exists('accounting_id', $resourceId[0])) {
                 if ($resourceId[0]['accounting_id']) {
-                    $this->accounting_id = $resourceId[0]['accounting_id'];
-                    $this->save();
+                    $this->model->accounting_id = $resourceId[0]['accounting_id'];
+                    $this->model->save();
                 }
             }
-            if (property_exists($this, 'last_sync_time')) {
-                $this->last_sync_time = Carbon::now();
+            if (property_exists($this->model, 'last_sync_time')) {
+                $this->model->last_sync_time = Carbon::now();
             }
         }
 
@@ -150,7 +151,7 @@ trait SyncToAccountingProvider
      */
     public function syncToAccountingProvider(): bool
     {
-        if (empty($this->accounting_id)) {
+        if (empty($this->model->accounting_id)) {
             return $this->insertToAccounting();
         }
         return $this->updateToAccounting();
@@ -174,21 +175,21 @@ trait SyncToAccountingProvider
             if (array_key_exists('sync_token', $resourceId[0])) {
                 if ($resourceId[0]['sync_token']) {
                     if (array_key_exists('sync_token', $this->getAttributes())) {
-                        $this->sync_token = $resourceId[0]['sync_token'];
+                        $this->model->sync_token = $resourceId[0]['sync_token'];
                     }
                 }
             }
             if ($resourceClass == 'PestRegister\LaravelAccountingSync\Models\Invoice') {
                 if (array_key_exists('invoice_data', $resourceId[0])) {
                     if ($resourceId[0]['invoice_data']) {
-                        $this->parseLineItemsFromAccounting($resourceId[0]);
+                        $this->model->parseLineItemsFromAccounting($resourceId[0]);
                     }
                 }
             }
             if (array_key_exists('accounting_id', $resourceId[0])) {
                 if ($resourceId[0]['accounting_id']) {
                     $this->accounting_id = $resourceId[0]['accounting_id'];
-                    $this->save();
+                    $this->model->save();
                 }
             }
         }
