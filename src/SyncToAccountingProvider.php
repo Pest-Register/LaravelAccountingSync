@@ -58,6 +58,7 @@ trait SyncToAccountingProvider
     {
         $modelClass = new $this->modelClassReference();
         $modelClass::ignoreObservableEvents(['created', 'updated', 'saved']);
+
         $attributes = $this->getAccountingArray();
         if($this->accountingResourceInstance == null){
             throw new \Exception('Accounting connection must be made with getSyncInstance($config) first');
@@ -101,6 +102,9 @@ trait SyncToAccountingProvider
      */
     public function updateToAccounting(): bool
     {
+        $modelClass = new $this->modelClassReference();
+        $modelClass::ignoreObservableEvents(['created', 'updated', 'saved']);
+
         if (empty($this->accounting_id)) {
             return false;
         }
@@ -166,6 +170,9 @@ trait SyncToAccountingProvider
     }
 
     public function deleteFromAccountingProvider($params){
+        $modelClass = new $this->modelClassReference();
+        $modelClass::ignoreObservableEvents(['created', 'updated', 'saved']);
+
         if($this->accountingResourceInstance == null){
             throw new \Exception('Accounting connection must be made with getSyncInstance($config) first');
         }
