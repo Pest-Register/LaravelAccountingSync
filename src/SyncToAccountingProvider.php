@@ -165,6 +165,7 @@ trait SyncToAccountingProvider
     }
 
     public function deleteFromAccountingProvider($params){
+        $this->ignoreObservableEvents(['created', 'updated', 'saved']);
         if($this->accountingResourceInstance == null){
             throw new \Exception('Accounting connection must be made with getSyncInstance($config) first');
         }
