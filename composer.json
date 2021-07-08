@@ -17,7 +17,6 @@
         "omnipay/common": "^3.0",
         "pest-register/php-accounting-myobaccountrightlive": "^1.0.8",
         "pest-register/php-accounting-myobessentials": "^1.0.7",
-        "pest-register/php-accounting-quickbooks": "^4.1.31",
         "pest-register/php-accounting-xero": "^3.4.18",
         "ext-json": "*"
     },
@@ -27,6 +26,7 @@
         "orchestra/testbench": "~3.0",
         "sempro/phpunit-pretty-print": "^1.0",
         "fzaninotto/faker": "^1.8",
+        "pest-register/php-accounting-quickbooks": "dev-feature/new-accounting",
       "ext-curl": "*"
     },
     "autoload": {
