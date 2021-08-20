@@ -26,7 +26,7 @@ trait SyncToAccountingProvider
      */
     abstract public function getAccountingArray(): array;
     abstract public function parseAccountingArray($data = []);
-    /**
+    /**s
      * Allows you to use `$model->Accounting_id` regardless of the actual column being used.
      *
      * @return null|string
@@ -86,12 +86,9 @@ trait SyncToAccountingProvider
             if (array_key_exists('accounting_id', $resourceId[0])) {
                 if ($resourceId[0]['accounting_id']) {
                     $this->model->accounting_id = $resourceId[0]['accounting_id'];
+                    $this->model->last_sync_time = Carbon::now();
                     $this->model->save();
                 }
-            }
-
-            if (property_exists($this->model, 'last_sync_time')) {
-                $this->model->last_sync_time = Carbon::now();
             }
         }
         $this->model->save();
@@ -136,14 +133,13 @@ trait SyncToAccountingProvider
                     }
                 }
             }
+
             if (array_key_exists('accounting_id', $resourceId[0])) {
                 if ($resourceId[0]['accounting_id']) {
                     $this->model->accounting_id = $resourceId[0]['accounting_id'];
+                    $this->model->last_sync_time = Carbon::now();
                     $this->model->save();
                 }
-            }
-            if (property_exists($this->model, 'last_sync_time')) {
-                $this->model->last_sync_time = Carbon::now();
             }
         }
 
@@ -197,15 +193,13 @@ trait SyncToAccountingProvider
                     }
                 }
             }
+
             if (array_key_exists('accounting_id', $resourceId[0])) {
                 if ($resourceId[0]['accounting_id']) {
                     $this->accounting_id = $resourceId[0]['accounting_id'];
+                    $this->model->last_sync_time = Carbon::now();
                     $this->model->save();
                 }
-            }
-
-            if (property_exists($this->model, 'last_sync_time')) {
-                $this->model->last_sync_time = Carbon::now();
             }
         }
 
