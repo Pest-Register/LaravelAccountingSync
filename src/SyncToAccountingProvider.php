@@ -89,6 +89,10 @@ trait SyncToAccountingProvider
                     $this->model->save();
                 }
             }
+
+            if (property_exists($this->model, 'last_sync_time')) {
+                $this->model->last_sync_time = Carbon::now();
+            }
         }
         $this->model->save();
         return true;
@@ -198,6 +202,10 @@ trait SyncToAccountingProvider
                     $this->accounting_id = $resourceId[0]['accounting_id'];
                     $this->model->save();
                 }
+            }
+
+            if (property_exists($this->model, 'last_sync_time')) {
+                $this->model->last_sync_time = Carbon::now();
             }
         }
 
