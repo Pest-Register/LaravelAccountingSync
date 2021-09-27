@@ -18,7 +18,7 @@
         "pest-register/php-accounting-myobaccountrightlive": "^1.0.8",
         "pest-register/php-accounting-myobessentials": "^1.0.7",
         "pest-register/php-accounting-quickbooks": "^4.1.31",
-        "pest-register/php-accounting-xero": "^3.4.18",
+        "pest-register/php-accounting-xero": "^4.0.0",
         "ext-json": "*"
     },
     "require-dev": {
