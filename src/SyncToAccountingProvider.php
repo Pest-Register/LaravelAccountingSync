@@ -76,13 +76,13 @@ trait SyncToAccountingProvider
                     }
                 }
             }
-//            if ($resourceClass == 'PestRegister\LaravelAccountingSync\Models\Invoice') {
-//                if (array_key_exists('invoice_data', $resourceId[0])) {
-//                    if ($resourceId[0]['invoice_data']) {
-//                        $this->parseLineItemsFromAccounting($resourceId[0]);
-//                    }
-//                }
-//            }
+            if ($resourceClass == 'PestRegister\LaravelAccountingSync\Models\Invoice') {
+                if (array_key_exists('invoice_data', $resourceId[0])) {
+                    if ($resourceId[0]['invoice_data']) {
+                        $this->parseLineItemsFromAccounting($resourceId[0]);
+                    }
+                }
+            }
             if (array_key_exists('accounting_id', $resourceId[0])) {
                 if ($resourceId[0]['accounting_id']) {
                     $this->model->accounting_id = $resourceId[0]['accounting_id'];
@@ -124,15 +124,15 @@ trait SyncToAccountingProvider
                     }
                 }
             }
-//            if ($resourceClass == 'PestRegister\LaravelAccountingSync\Models\Invoice') {
-//                if (array_key_exists('invoice_data', $resourceId[0])) {
-//                    if ($resourceId[0]['invoice_data']) {
-//                        if (method_exists($this, 'parseLineItemsFromAccounting')) {
-//                            $this->parseLineItemsFromAccounting($resourceId[0]);
-//                        }
-//                    }
-//                }
-//            }
+            if ($resourceClass == 'PestRegister\LaravelAccountingSync\Models\Invoice') {
+                if (array_key_exists('invoice_data', $resourceId[0])) {
+                    if ($resourceId[0]['invoice_data']) {
+                        if (method_exists($this, 'parseLineItemsFromAccounting')) {
+                            $this->parseLineItemsFromAccounting($resourceId[0]);
+                        }
+                    }
+                }
+            }
 
             if (array_key_exists('accounting_id', $resourceId[0])) {
                 if ($resourceId[0]['accounting_id']) {
