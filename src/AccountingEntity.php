@@ -65,13 +65,6 @@ abstract class AccountingEntity
         $accountingId = $resourceId[0]['accounting_id'] ?? null;
         $syncToken = $resourceId[0]['sync_token'] ?? null;
 
-        // todo - remove these once implements
-        // todo - remove parseLineItemsFromAccounting() and collapse into afterAccountingSave
-//        $modelClass = new $this->modelClassReference();
-//        $modelClass::ignoreObservableEvents(['created', 'updated', 'saved']);
-//        $this->model->accounting_id = $resourceId[0]['accounting_id'];
-//        $this->model->last_sync_time = Carbon::now();
-//        $this->model->save();
         $this->afterAccountingSave($accountingId, $syncToken, 'insert', $resourceId[0]);
         return true;
     }
