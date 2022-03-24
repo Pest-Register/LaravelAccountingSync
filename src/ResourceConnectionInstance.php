@@ -58,7 +58,7 @@ class ResourceConnectionInstance
      */
     public function __call ($method, $args) {
         if (method_exists($this->accountingResourceInstance, $method)) {
-            return $this->accountingResourceInstance->$method($args);
+            return $this->accountingResourceInstance->$method(...$args);
         }
         throw new \Exception('Method does not exist');
     }

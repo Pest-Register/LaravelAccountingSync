@@ -53,7 +53,7 @@ abstract class AccountingEntity
     private function insertToAccounting(): bool
     {
         if($this->resourceConnectionInstance == null){
-            throw new \Exception('Accounting connection must be made with getSyncInstance($config) first');
+            throw new \Exception('Accounting connection must be instantiated first');
         }
 
         $attributes = $this->getAccountingArray();
@@ -81,7 +81,7 @@ abstract class AccountingEntity
             return false;
         }
         if($this->resourceConnectionInstance == null){
-            throw new \Exception('Accounting connection must be made with getSyncInstance($config) first');
+            throw new \Exception('Accounting connection must be instantiated first');
         }
 
         $attributes = $this->getAccountingArray();
@@ -119,7 +119,7 @@ abstract class AccountingEntity
      */
     public function deleteFromAccountingProvider($params){
         if ($this->resourceConnectionInstance == null){
-            throw new \Exception('Accounting connection must be made with getSyncInstance($config) first');
+            throw new \Exception('Accounting connection must be instantiated first');
         }
         $resourceId = $this->resourceConnectionInstance->delete($params);
         if (!$resourceId || !$resourceId[0] || !$resourceId[0]['accounting_id']) {
