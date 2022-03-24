@@ -8,24 +8,135 @@
 
 namespace PestRegister\LaravelAccountingSync;
 
-
-use Illuminate\Database\Eloquent\Model;
-use PestRegister\LaravelAccountingSync\Resources\Syncable;
-
-abstract class AccountingEntity extends Model implements Syncable
+abstract class AccountingEntity
 {
-    use SyncToAccountingProvider;
     /**
-     * Database column name
-     *
-     * @var string
+     * @var ResourceConnectionInstance
      */
-    protected $accountingIdColumn = 'accounting_id';
+    private $resourceConnectionInstance;
 
     /**
-     * The resource class from LifeOnScreen\LaravelQuickBooks\Resources.
+     * The data to sync to Accounting.
      *
-     * @var string
+     * @see https://developer.intuit.com/docs/api/accounting
+     * @return array
      */
-    protected $accountingResource;
+    abstract public function getAccountingArray(): array;
+
+    /**
+     * Returns the accounting_id value for the model being updated
+     *
+     * @return mixed
+     */
+    abstract public function getAccountingId();
+
+    /**
+     * Save states locally after an accounting save has completed
+     * @return mixed
+     */
+    abstract public function afterAccountingSave($accountingId, $syncToken, $mode, $payload = []);
+
+    /**
+     * @throws \ReflectionException
+     * @throws \Exception
+     */
+    public function __construct ($accountingResource, $config) {
+        $this->resourceConnectionInstance = new ResourceConnectionInstance($accountingResource, $config);
+    }
+
+    /**
+     * Creates the model in Accounting.
+     *
+     * @return bool
+     * @throws \Exception
+     */
+    private function insertToAccounting(): bool
+    {
+        if($this->resourceConnectionInstance == null){
+            throw new \Exception('Accounting connection must be made with getSyncInstance($config) first');
+        }
+
+        $attributes = $this->getAccountingArray();
+        $resourceId = $this->resourceConnectionInstance->create($attributes);
+        if (!$resourceId || !$resourceId[0] || !$resourceId[0]['accounting_id']) {
+            return false;
+        }
+
+        $accountingId = $resourceId[0]['accounting_id'] ?? null;
+        $syncToken = $resourceId[0]['sync_token'] ?? null;
+
+        // todo - remove these once implements
+        // todo - remove parseLineItemsFromAccounting() and collapse into afterAccountingSave
+//        $modelClass = new $this->modelClassReference();
+//        $modelClass::ignoreObservableEvents(['created', 'updated', 'saved']);
+//        $this->model->accounting_id = $resourceId[0]['accounting_id'];
+//        $this->model->last_sync_time = Carbon::now();
+//        $this->model->save();
+        $this->afterAccountingSave($accountingId, $syncToken, 'insert', $resourceId[0]);
+        return true;
+    }
+
+    /**
+     * Updates the model in Accounting.
+     *
+     * @return bool
+     * @throws \Exception
+     */
+    private function updateToAccounting(): bool
+    {
+        if (empty($this->getAccountingId())) {
+            return false;
+        }
+        if($this->resourceConnectionInstance == null){
+            throw new \Exception('Accounting connection must be made with getSyncInstance($config) first');
+        }
+
+        $attributes = $this->getAccountingArray();
+        $resourceId = $this->resourceConnectionInstance->update(array_merge(['accounting_id'=> $this->getAccountingId()], $attributes));
+        if (!$resourceId || !$resourceId[0] || !$resourceId[0]['accounting_id']) {
+            return false;
+        }
+
+        $accountingId = $resourceId[0]['accounting_id'] ?? null;
+        $syncToken = $resourceId[0]['sync_token'] ?? null;
+
+        $this->afterAccountingSave($accountingId, $syncToken, 'update', $resourceId[0]);
+        return true;
+    }
+
+    /**
+     * Syncs the model to Accounting.
+     *
+     * @return bool
+     * @throws \Exception
+     */
+    public function syncToAccountingProvider(): bool
+    {
+        // remove direct usages of ->model
+        if (empty($this->getAccountingId())) {
+            return $this->insertToAccounting();
+        }
+        return $this->updateToAccounting();
+    }
+
+    /**
+     * @param $params
+     * @return bool
+     * @throws \Exception
+     */
+    public function deleteFromAccountingProvider($params){
+        if ($this->resourceConnectionInstance == null){
+            throw new \Exception('Accounting connection must be made with getSyncInstance($config) first');
+        }
+        $resourceId = $this->resourceConnectionInstance->delete($params);
+        if (!$resourceId || !$resourceId[0] || !$resourceId[0]['accounting_id']) {
+            return false;
+        }
+
+        $accountingId = $resourceId[0]['accounting_id'] ?? null;
+        $syncToken = $resourceId[0]['sync_token'] ?? null;
+
+        $this->afterAccountingSave($accountingId, $syncToken, 'delete', $resourceId[0]);
+        return true;
+    }
 }

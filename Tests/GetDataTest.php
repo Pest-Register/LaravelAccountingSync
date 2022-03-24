@@ -92,9 +92,4 @@ class Entity extends AccountingEntity {
     }
 
     protected $accountingResource = Contact::class;
-
-    public function parseAccountingArray($data = [])
-    {
-        // TODO: Implement parseAccountingArray() method.
-    }
 }
