@@ -4,6 +4,7 @@
 namespace PestRegister\LaravelAccountingSync\Models;
 
 
+use PestRegister\LaravelAccountingSync\Exceptions\AccountingException;
 use PestRegister\LaravelAccountingSync\Interfaces\CrudInterface;
 
 class CurrentUser extends BaseModel implements CrudInterface
@@ -23,7 +24,7 @@ class CurrentUser extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->getCurrentUser()->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getCurrentUser();
     }

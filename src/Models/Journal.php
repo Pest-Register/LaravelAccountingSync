@@ -3,6 +3,7 @@
 
 namespace PestRegister\LaravelAccountingSync\Models;
 
+use PestRegister\LaravelAccountingSync\Exceptions\AccountingException;
 use PestRegister\LaravelAccountingSync\Interfaces\CrudInterface;
 
 class Journal extends BaseModel implements CrudInterface
@@ -16,7 +17,7 @@ class Journal extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->createJournal($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getJournals();
     }
@@ -31,7 +32,7 @@ class Journal extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->updateJournal($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getJournals();
     }
@@ -46,7 +47,7 @@ class Journal extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->getJournal($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getJournals();
     }
@@ -61,7 +62,7 @@ class Journal extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->deleteJournal($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getJournals();
     }

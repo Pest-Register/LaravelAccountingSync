@@ -60,7 +60,7 @@ class ResourceConnectionInstance
         if (method_exists($this->accountingResourceInstance, $method)) {
             return $this->accountingResourceInstance->$method(...$args);
         }
-        throw new \Exception('Method does not exist');
+        throw new \Exception('Provider connection method does not exist');
     }
 
     /**

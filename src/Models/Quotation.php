@@ -4,6 +4,7 @@
 namespace PestRegister\LaravelAccountingSync\Models;
 
 
+use PestRegister\LaravelAccountingSync\Exceptions\AccountingException;
 use PestRegister\LaravelAccountingSync\Interfaces\CrudInterface;
 
 class Quotation extends BaseModel implements CrudInterface
@@ -17,7 +18,7 @@ class Quotation extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->createQuotation($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getQuotations();
     }
@@ -32,7 +33,7 @@ class Quotation extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->updateQuotation($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getQuotations();
     }
@@ -46,7 +47,7 @@ class Quotation extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->getQuotation($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getQuotations();
     }
@@ -60,7 +61,7 @@ class Quotation extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->deleteQuotation($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getQuotations();
     }

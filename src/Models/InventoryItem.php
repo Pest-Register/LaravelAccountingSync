@@ -9,6 +9,7 @@
 namespace PestRegister\LaravelAccountingSync\Models;
 
 
+use PestRegister\LaravelAccountingSync\Exceptions\AccountingException;
 use PestRegister\LaravelAccountingSync\Interfaces\CrudInterface;
 
 class InventoryItem extends BaseModel implements CrudInterface
@@ -18,7 +19,7 @@ class InventoryItem extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->createInventoryItem($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getInventoryItems();
     }
@@ -27,7 +28,7 @@ class InventoryItem extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->updateInventoryItem($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getInventoryItems();
     }
@@ -36,7 +37,7 @@ class InventoryItem extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->getInventoryItem($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getInventoryItems();
     }
@@ -45,7 +46,7 @@ class InventoryItem extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->deleteInventoryItem($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getInventoryItems();
     }

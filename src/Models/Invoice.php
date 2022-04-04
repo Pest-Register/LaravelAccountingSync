@@ -9,6 +9,7 @@
 namespace PestRegister\LaravelAccountingSync\Models;
 
 
+use PestRegister\LaravelAccountingSync\Exceptions\AccountingException;
 use PestRegister\LaravelAccountingSync\Interfaces\CrudInterface;
 
 class Invoice extends BaseModel implements CrudInterface
@@ -23,7 +24,7 @@ class Invoice extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->createInvoice($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getInvoices();
     }
@@ -38,7 +39,7 @@ class Invoice extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->updateInvoice($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getInvoices();
     }
@@ -52,7 +53,7 @@ class Invoice extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->getInvoice($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getInvoices();
     }
@@ -66,7 +67,7 @@ class Invoice extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->deleteInvoice($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getInvoices();
     }
