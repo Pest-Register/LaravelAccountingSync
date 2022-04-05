@@ -19,7 +19,7 @@ class AccountingException extends \Exception {
         $this->payload = $payload;
 
         $message = $payload['message'] ?? null;
-        $code = $payload['code'] ?? 0;
+        $code = $payload['error_code'] ?? 0;
 
         parent::__construct($message, $code, $previous);
     }
