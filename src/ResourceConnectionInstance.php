@@ -32,22 +32,6 @@ class ResourceConnectionInstance
     }
 
     /**
-     * @return null|\AccountingOnline\API\Core\HttpClients\FaultHandler
-     */
-    public function getLastAccountingError()
-    {
-        return $this->accountingResourceInstance->getError();
-    }
-
-    /**
-     * @param $params
-     * @return mixed
-     */
-    public function loadFromAccountingProvider($params){
-        return $this->accountingResourceInstance->get($params);
-    }
-
-    /**
      * Magic method to call method of accountingResourceInstance
      * if the method is not defined on this Connector
      *

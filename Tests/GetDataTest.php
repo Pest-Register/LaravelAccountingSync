@@ -45,7 +45,7 @@ class GetDataTest extends TestCase
                 $params['skip'] = $skip;
             }
             $model = new ResourceConnectionInstance(Contact::class, $config);
-            $collection = $model->loadFromAccountingProvider($params);
+            $collection = $model->get($params);
             do {
                 if ($provider === 'myobaccountright') {
                     $page = $page + 1000;
@@ -58,7 +58,7 @@ class GetDataTest extends TestCase
                 $params['page'] = $page;
                 $params['skip'] = $skip;
                 try {
-                    $pagedData = $model->loadFromAccountingProvider($params);
+                    $pagedData = $model->get($params);
                     $collection = array_merge($pagedData, $collection);
                 } catch (\Exception $e) {
                     var_dump($e->getMessage());

@@ -113,6 +113,31 @@ abstract class AccountingEntity
     }
 
     /**
+     * Fetch stored details from the accounting provider instance
+     *
+     * @return mixed|null
+     * @throws \Exception
+     */
+    public function fetchFromAccountingProvider ($extraParams = []) {
+        if ($this->resourceConnectionInstance == null){
+            throw new \Exception('Accounting connection must be instantiated first');
+        }
+
+        $accountingId = $this->getAccountingId();
+        if (!$accountingId) {
+            throw new \Exception('Accounting ID does not exist for this model instance');
+        }
+
+        $payload = $this->resourceConnectionInstance->get([
+            'accounting_id' => $accountingId
+        ] + $extraParams);
+        if (!$payload || !is_array($payload) || count($payload) < 1) {
+            return null;
+        }
+        return $payload[0];
+    }
+
+    /**
      * @param $params
      * @return bool
      * @throws \Exception
