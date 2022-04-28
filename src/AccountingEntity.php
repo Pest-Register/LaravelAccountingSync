@@ -50,13 +50,13 @@ abstract class AccountingEntity
      * @return bool
      * @throws \Exception
      */
-    private function insertToAccounting(): bool
+    private function insertToAccounting($extraData = []): bool
     {
         if($this->resourceConnectionInstance == null){
             throw new \Exception('Accounting connection must be instantiated first');
         }
 
-        $attributes = $this->getAccountingArray();
+        $attributes = $extraData ?: $this->getAccountingArray();
         $resourceId = $this->resourceConnectionInstance->create($attributes);
         if (!$resourceId || !$resourceId[0] || !$resourceId[0]['accounting_id']) {
             return false;
@@ -75,17 +75,17 @@ abstract class AccountingEntity
      * @return bool
      * @throws \Exception
      */
-    private function updateToAccounting(): bool
+    private function updateToAccounting($extraData = []): bool
     {
-        if (empty($this->getAccountingId())) {
+        if (empty($accountingId = $this->getAccountingId())) {
             return false;
         }
         if($this->resourceConnectionInstance == null){
             throw new \Exception('Accounting connection must be instantiated first');
         }
 
-        $attributes = $this->getAccountingArray();
-        $resourceId = $this->resourceConnectionInstance->update(array_merge(['accounting_id'=> $this->getAccountingId()], $attributes));
+        $attributes = $extraData ?: $this->getAccountingArray();
+        $resourceId = $this->resourceConnectionInstance->update(array_merge(['accounting_id'=> $accountingId], $attributes));
         if (!$resourceId || !$resourceId[0] || !$resourceId[0]['accounting_id']) {
             return false;
         }
@@ -103,13 +103,13 @@ abstract class AccountingEntity
      * @return bool
      * @throws \Exception
      */
-    public function syncToAccountingProvider(): bool
+    public function syncToAccountingProvider($extraData = []): bool
     {
         // remove direct usages of ->model
         if (empty($this->getAccountingId())) {
-            return $this->insertToAccounting();
+            return $this->insertToAccounting($extraData);
         }
-        return $this->updateToAccounting();
+        return $this->updateToAccounting($extraData);
     }
 
     /**
@@ -146,7 +146,10 @@ abstract class AccountingEntity
         if ($this->resourceConnectionInstance == null){
             throw new \Exception('Accounting connection must be instantiated first');
         }
-        $resourceId = $this->resourceConnectionInstance->delete($params);
+        if (empty($accountingId = $this->getAccountingId())) {
+            return false;
+        }
+        $resourceId = $this->resourceConnectionInstance->delete(array_merge(['accounting_id'=> $accountingId], $params));
         if (!$resourceId || !$resourceId[0] || !$resourceId[0]['accounting_id']) {
             return false;
         }
