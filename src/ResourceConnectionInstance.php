@@ -42,12 +42,12 @@ class ResourceConnectionInstance
      * @return mixed
      */
     public function search (array $params = [], array $searchParams = [], array $searchFilters = [], bool $exactSearchValue = true, bool $matchAllFilters = false) {
-        $arr = $params + [
+        $arr = [
             'search_params' => $searchParams,
             'exact_search_value' => $exactSearchValue,
             'search_filters' => $searchFilters,
             'match_all_filters' => $matchAllFilters,
-        ];
+        ] + $params;
 
         return $this->accountingResourceInstance->get($arr);
     }
