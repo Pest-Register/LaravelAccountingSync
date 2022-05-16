@@ -24,7 +24,7 @@
         "orchestra/testbench": "~3.0",
         "sempro/phpunit-pretty-print": "^1.0",
         "fzaninotto/faker": "^1.8",
-        "pest-register/php-accounting-myobaccountrightlive": "master",
+        "pest-register/php-accounting-myobaccountrightlive": "dev-master",
         "pest-register/php-accounting-quickbooks": "dev-feature/new-accounting",
         "pest-register/php-accounting-xero": "dev-feature/new-accounting",
       "ext-curl": "*"
