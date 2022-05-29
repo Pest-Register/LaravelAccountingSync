@@ -38,6 +38,7 @@ class AccountingException extends \Exception {
         $message = isset($payload['message']) ? strtolower($payload['message']) : null;
 
         switch (true) {
+            case $message == 'unauthorized':
             case $message == 'the access token has expired':
                 $exceptionClass = AccessTokenExpiredException::class;
                 break;
