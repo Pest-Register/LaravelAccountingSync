@@ -52,6 +52,7 @@ class AccountingException extends \Exception {
             case strpos($message, 'duplicate model found') !== false:
             // myob
             case strpos($message, 'card_duplicatecardid') !== false:
+            case strpos($message, 'inventory_duplicateitemnumber') !== false:
                 $exceptionClass = DuplicateModelException::class;
                 break;
             case strpos($message, 'no model found from given id') !== false:
