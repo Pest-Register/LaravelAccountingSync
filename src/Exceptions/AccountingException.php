@@ -50,6 +50,8 @@ class AccountingException extends \Exception {
                 $exceptionClass = RateLimitException::class;
                 break;
             case strpos($message, 'duplicate model found') !== false:
+            // myob
+            case strpos($message, 'card_duplicatecardid') !== false:
                 $exceptionClass = DuplicateModelException::class;
                 break;
             case strpos($message, 'no model found from given id') !== false:

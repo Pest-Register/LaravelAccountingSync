@@ -45,9 +45,7 @@ class BaseModel
 
     private $allowedGateways = [
         'xero',
-        'myobaccountright',
         'myobaccountrightlive',
-        'myobessentials',
         'quickbooks'
     ];
 
@@ -81,25 +79,10 @@ class BaseModel
                 $this->gateway->setAPIKey($config['apiKey']);
                 $this->gateway->setAccessToken($config['accessToken']);
                 $this->gateway->setCompanyEndpoint($config['companyEndpoint']);
-                $this->gateway->setCompanyFile($config['companyFile']);
                 $this->gateway->setAccessFlag($config['accessFlag']);
                 $this->gateway->setBusinessID($config['businessID']);
                 $this->gateway->setCountryCode($config['countryCode']);
                 $this->gateway->setProduct($config['product']);
-                break;
-            case "myobaccountright":
-                $this->gateway = Omnipay::create('\PHPAccounting\MyobAccountRight\Gateway');
-                $this->gateway->setAPIKey($config['apiKey']);
-                $this->gateway->setAccessToken($config['accessToken']);
-                $this->gateway->setCompanyEndpoint($config['companyEndpoint']);
-                $this->gateway->setCompanyFile($config['companyFile']);
-                break;
-            case "myobessentials":
-                $this->gateway = Omnipay::create('\PHPAccounting\MyobEssentials\Gateway');
-                $this->gateway->setApiKey($config['apiKey']);
-                $this->gateway->setAccessToken($config['accessToken']);
-                $this->gateway->setBusinessID($config['businessID']);
-                $this->gateway->setCountryCode($config['countryCode']);
                 break;
             case "quickbooks":
                 $this->gateway = Omnipay::create('\PHPAccounting\Quickbooks\Gateway');
