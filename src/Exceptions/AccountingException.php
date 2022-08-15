@@ -70,6 +70,9 @@ class AccountingException extends \Exception {
             case strpos($message, 'invalid number') !== false:
             // myob
             case strpos($message, 'parameter is required') !== false:
+            case strpos($message, 'parameter missing') !== false:
+            case strpos($message, 'maximum allowed characters') !== false:
+            case strpos($message, 'error converting value {null} to type \'system.guid\'') !== false:
                 $exceptionClass = ValidationException::class;
                 break;
         }
