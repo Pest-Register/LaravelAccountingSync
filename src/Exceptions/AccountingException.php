@@ -68,6 +68,8 @@ class AccountingException extends \Exception {
             case strpos($message, 'invalid account type') !== false:
             case strpos($message, 'malformed web site address format') !== false:
             case strpos($message, 'invalid number') !== false:
+            // myob
+            case strpos($message, 'parameter is required') !== false:
                 $exceptionClass = ValidationException::class;
                 break;
         }
