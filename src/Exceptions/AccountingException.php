@@ -47,6 +47,8 @@ class AccountingException extends \Exception {
                 $exceptionClass = EndOfPaginationException::class;
                 break;
             case strpos($message, 'the api rate limit for your organisation/application pairing has been exceeded') !== false:
+            // myob
+            case strpos($message, 'connection to the api has timed out') !== false:
                 $exceptionClass = RateLimitException::class;
                 break;
             case strpos($message, 'duplicate model found') !== false:
