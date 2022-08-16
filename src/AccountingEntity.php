@@ -47,10 +47,11 @@ abstract class AccountingEntity
     /**
      * Creates the model in Accounting.
      *
+     * @param array $extraData
      * @return bool
      * @throws \Exception
      */
-    private function insertToAccounting($extraData = []): bool
+    private function insertToAccounting($extraData = [])
     {
         if($this->resourceConnectionInstance == null){
             throw new \Exception('Accounting connection must be instantiated first');
@@ -59,26 +60,27 @@ abstract class AccountingEntity
         $attributes = $extraData ?: $this->getAccountingArray();
         $resourceId = $this->resourceConnectionInstance->create($attributes);
         if (!$resourceId || !$resourceId[0] || !$resourceId[0]['accounting_id']) {
-            return false;
+            return null;
         }
 
         $accountingId = $resourceId[0]['accounting_id'] ?? null;
         $syncToken = $resourceId[0]['sync_token'] ?? null;
 
         $this->afterAccountingSave($accountingId, $syncToken, 'insert', $resourceId[0]);
-        return true;
+        return $resourceId[0];
     }
 
     /**
      * Updates the model in Accounting.
      *
+     * @param array $extraData
      * @return bool
      * @throws \Exception
      */
-    private function updateToAccounting($extraData = []): bool
+    private function updateToAccounting($extraData = [])
     {
         if (empty($accountingId = $this->getAccountingId())) {
-            return false;
+            return null;
         }
         if($this->resourceConnectionInstance == null){
             throw new \Exception('Accounting connection must be instantiated first');
@@ -87,23 +89,24 @@ abstract class AccountingEntity
         $attributes = $extraData ?: $this->getAccountingArray();
         $resourceId = $this->resourceConnectionInstance->update(array_merge(['accounting_id'=> $accountingId], $attributes));
         if (!$resourceId || !$resourceId[0] || !$resourceId[0]['accounting_id']) {
-            return false;
+            return null;
         }
 
         $accountingId = $resourceId[0]['accounting_id'] ?? null;
         $syncToken = $resourceId[0]['sync_token'] ?? null;
 
         $this->afterAccountingSave($accountingId, $syncToken, 'update', $resourceId[0]);
-        return true;
+        return $resourceId[0];
     }
 
     /**
      * Syncs the model to Accounting.
      *
+     * @param array $extraData
      * @return bool
      * @throws \Exception
      */
-    public function syncToAccountingProvider($extraData = []): bool
+    public function syncToAccountingProvider($extraData = [])
     {
         // remove direct usages of ->model
         if (empty($this->getAccountingId())) {
