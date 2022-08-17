@@ -75,6 +75,7 @@ class AccountingException extends \Exception {
             case strpos($message, 'parameter missing') !== false:
             case strpos($message, 'maximum allowed characters') !== false:
             case strpos($message, 'error converting value {null} to type \'system.guid\'') !== false:
+            case strpos($message, 'commonrules') !== false:
                 $exceptionClass = ValidationException::class;
                 break;
         }
