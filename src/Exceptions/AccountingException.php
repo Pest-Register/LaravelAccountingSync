@@ -63,6 +63,8 @@ class AccountingException extends \Exception {
                 $exceptionClass = ModelNotFoundException::class;
                 break;
             case strpos($message, 'model cannot be edited') !== false:
+            // qb
+            case strpos($message, 'stale object error') !== false:
                 $exceptionClass = ModelCannotEditException::class;
                 break;
             case strpos($message, 'required param missing') !== false:
