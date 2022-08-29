@@ -70,8 +70,10 @@ class AccountingException extends \Exception {
             case strpos($message, 'required param missing') !== false:
             case strpos($message, 'validation exception') !== false:
             case strpos($message, 'invalid account type') !== false:
+            // qb
             case strpos($message, 'malformed web site address format') !== false:
             case strpos($message, 'invalid number') !== false:
+            case strpos($message, 'passed array has no key for \'value\'') !== false:
             // myob
             case strpos($message, 'parameter is required') !== false:
             case strpos($message, 'parameter missing') !== false:
