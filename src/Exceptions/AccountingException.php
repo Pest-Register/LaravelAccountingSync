@@ -73,7 +73,7 @@ class AccountingException extends \Exception {
             // qb
             case strpos($message, 'malformed web site address format') !== false:
             case strpos($message, 'invalid number') !== false:
-            case strpos($message, 'passed array has no key for \'value\'') !== false:
+            case strpos($message, 'passed array has no key for') !== false:
             // myob
             case strpos($message, 'parameter is required') !== false:
             case strpos($message, 'parameter missing') !== false:
