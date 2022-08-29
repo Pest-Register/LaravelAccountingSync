@@ -19,7 +19,6 @@ class Account extends BaseModel implements CrudInterface
         $response = $this->getGateway()->createAccount($parameters)->send();
         if (!$response->isSuccessful()) {
             AccountingException::handle($response->getErrorMessage());
-            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getAccounts();
     }
