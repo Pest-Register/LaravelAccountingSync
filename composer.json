@@ -13,7 +13,7 @@
     "keywords": ["Laravel", "LaravelAccountingSync"],
     "require": {
         "illuminate/support": "~5.8 || ^6.0 || ^7.0",
-        "php-http/guzzle6-adapter": "*",
+        "php-http/guzzle7-adapter": "*",
         "omnipay/common": "^3.0",
         "pest-register/php-accounting-myobessentials": "^1.0.7",
         "ext-json": "*"
@@ -24,9 +24,9 @@
         "orchestra/testbench": "~3.0",
         "sempro/phpunit-pretty-print": "^1.0",
         "fzaninotto/faker": "^1.8",
-        "pest-register/php-accounting-myobaccountrightlive": "dev-master",
-        "pest-register/php-accounting-quickbooks": "dev-feature/new-accounting",
-        "pest-register/php-accounting-xero": "dev-feature/new-accounting",
+        "pest-register/php-accounting-myobaccountrightlive": "dev-upgrades/php7.4",
+        "pest-register/php-accounting-quickbooks": "dev-upgrades/php7.4",
+        "pest-register/php-accounting-xero": "dev-upgrades/php7.4",
       "ext-curl": "*"
     },
     "autoload": {
