@@ -12,7 +12,7 @@
     "homepage": "https://github.com/pestregister/laravelaccountingsync",
     "keywords": ["Laravel", "LaravelAccountingSync"],
     "require": {
-        "illuminate/support": "8.83.26",
+        "illuminate/support": "^9.0.*",
         "php-http/guzzle7-adapter": "*",
         "omnipay/common": "^3.0",
         "ext-json": "*"
@@ -22,7 +22,7 @@
         "mockery/mockery": "^1.1",
         "orchestra/testbench": "~3.0",
         "sempro/phpunit-pretty-print": "^1.0",
-        "fzaninotto/faker": "^1.8",
+        "fakerphp/faker": "^1.9.1",
         "pest-register/php-accounting-myobaccountrightlive": "dev-upgrades/laravel8-shift",
         "pest-register/php-accounting-quickbooks": "dev-upgrades/laravel8-shift",
         "pest-register/php-accounting-xero": "dev-upgrades/laravel8-shift",
