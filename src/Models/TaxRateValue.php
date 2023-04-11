@@ -8,6 +8,7 @@
 namespace PestRegister\LaravelAccountingSync\Models;
 
 
+use PestRegister\LaravelAccountingSync\Exceptions\AccountingException;
 use PestRegister\LaravelAccountingSync\Interfaces\CrudInterface;
 
 class TaxRateValue extends BaseModel implements CrudInterface
@@ -17,7 +18,7 @@ class TaxRateValue extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->createTaxRateValue($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getTaxRateValues();
     }
@@ -26,7 +27,7 @@ class TaxRateValue extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->updateTaxRateValue($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getTaxRateValues();
     }
@@ -35,7 +36,7 @@ class TaxRateValue extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->getTaxRateValue($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getTaxRateValues();
     }
@@ -44,7 +45,7 @@ class TaxRateValue extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->deleteTaxRateValue($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getTaxRateValues();
     }

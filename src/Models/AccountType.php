@@ -4,6 +4,7 @@
 namespace PestRegister\LaravelAccountingSync\Models;
 
 
+use PestRegister\LaravelAccountingSync\Exceptions\AccountingException;
 use PestRegister\LaravelAccountingSync\Interfaces\CrudInterface;
 
 class AccountType extends BaseModel implements CrudInterface
@@ -18,7 +19,7 @@ class AccountType extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->getAccountType($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getAccountTypes();
     }

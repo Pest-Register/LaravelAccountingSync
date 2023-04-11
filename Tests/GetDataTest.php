@@ -20,6 +20,7 @@ use PestRegister\LaravelAccountingSync\Models\ManualJournal;
 use PestRegister\LaravelAccountingSync\Models\Payment;
 use PestRegister\LaravelAccountingSync\Models\TaxRate;
 use PestRegister\LaravelAccountingSync\Models\TaxRateValue;
+use PestRegister\LaravelAccountingSync\ResourceConnectionInstance;
 use PHPUnit\Framework\TestCase;
 
 class GetDataTest extends TestCase
@@ -43,8 +44,8 @@ class GetDataTest extends TestCase
             if ($provider === 'myobaccountright') {
                 $params['skip'] = $skip;
             }
-            $model = new Entity();
-            $collection = $model->getSyncInstance($config)->loadFromAccountingProvider($params);
+            $model = new ResourceConnectionInstance(Contact::class, $config);
+            $collection = $model->get($params);
             do {
                 if ($provider === 'myobaccountright') {
                     $page = $page + 1000;
@@ -57,7 +58,7 @@ class GetDataTest extends TestCase
                 $params['page'] = $page;
                 $params['skip'] = $skip;
                 try {
-                    $pagedData = $model->getSyncInstance($config)->loadFromAccountingProvider($params);
+                    $pagedData = $model->get($params);
                     $collection = array_merge($pagedData, $collection);
                 } catch (\Exception $e) {
                     var_dump($e->getMessage());
@@ -69,32 +70,5 @@ class GetDataTest extends TestCase
             var_dump($exception->getMessage());
         }
         var_dump('number of entity: '.count($collection));
-    }
-}
-
-class Entity extends AccountingEntity {
-
-    /**
-     * The data to sync to Accounting.
-     *
-     * @see https://developer.intuit.com/docs/api/accounting
-     * @return array
-     */
-    public function getAccountingArray(): array
-    {
-
-        return [
-            'name' => '3sfsefe',
-            'first_name' => 'test',
-            'last_name' => 'account',
-            'email_address' => 'test@test.com'
-        ];
-    }
-
-    protected $accountingResource = Contact::class;
-
-    public function parseAccountingArray($data = [])
-    {
-        // TODO: Implement parseAccountingArray() method.
     }
 }

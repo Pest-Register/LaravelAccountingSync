@@ -3,6 +3,7 @@
 
 namespace PestRegister\LaravelAccountingSync\Models;
 
+use PestRegister\LaravelAccountingSync\Exceptions\AccountingException;
 use PestRegister\LaravelAccountingSync\Interfaces\CrudInterface;
 
 class Account extends BaseModel implements CrudInterface
@@ -17,7 +18,7 @@ class Account extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->createAccount($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getAccounts();
     }
@@ -32,7 +33,7 @@ class Account extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->updateAccount($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getAccounts();
     }
@@ -46,7 +47,7 @@ class Account extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->getAccount($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getAccounts();
     }
@@ -60,7 +61,7 @@ class Account extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->deleteAccount($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getAccounts();
     }

@@ -3,6 +3,7 @@
 
 namespace PestRegister\LaravelAccountingSync\Models;
 
+use PestRegister\LaravelAccountingSync\Exceptions\AccountingException;
 use PestRegister\LaravelAccountingSync\Interfaces\CrudInterface;
 
 /**
@@ -24,7 +25,7 @@ class Contact extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->createContact($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getContacts();
     }
@@ -39,7 +40,7 @@ class Contact extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->updateContact($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getContacts();
     }
@@ -54,7 +55,7 @@ class Contact extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->getContact($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getContacts();
     }
@@ -69,7 +70,7 @@ class Contact extends BaseModel implements CrudInterface
     {
         $response = $this->getGateway()->deleteContact($parameters)->send();
         if (!$response->isSuccessful()) {
-            throw new \Exception(json_encode($response->getErrorMessage()));
+            AccountingException::handle($response->getErrorMessage());
         }
         return $response->getContacts();
     }
